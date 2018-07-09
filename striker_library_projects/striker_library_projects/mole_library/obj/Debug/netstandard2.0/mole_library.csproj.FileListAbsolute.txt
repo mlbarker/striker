@@ -1,0 +1,9 @@
+C:\Users\Swashy-B\striker\striker_library_projects\striker_library_projects\mole_library\bin\Debug\netstandard2.0\mole_library.deps.json
+C:\Users\Swashy-B\striker\striker_library_projects\striker_library_projects\mole_library\bin\Debug\netstandard2.0\mole_library.dll
+C:\Users\Swashy-B\striker\striker_library_projects\striker_library_projects\mole_library\bin\Debug\netstandard2.0\mole_library.pdb
+C:\Users\Swashy-B\striker\striker_library_projects\striker_library_projects\mole_library\obj\Debug\netstandard2.0\mole_library.csprojAssemblyReference.cache
+C:\Users\Swashy-B\striker\striker_library_projects\striker_library_projects\mole_library\obj\Debug\netstandard2.0\mole_library.csproj.CoreCompileInputs.cache
+C:\Users\Swashy-B\striker\striker_library_projects\striker_library_projects\mole_library\obj\Debug\netstandard2.0\mole_library.AssemblyInfoInputs.cache
+C:\Users\Swashy-B\striker\striker_library_projects\striker_library_projects\mole_library\obj\Debug\netstandard2.0\mole_library.AssemblyInfo.cs
+C:\Users\Swashy-B\striker\striker_library_projects\striker_library_projects\mole_library\obj\Debug\netstandard2.0\mole_library.dll
+C:\Users\Swashy-B\striker\striker_library_projects\striker_library_projects\mole_library\obj\Debug\netstandard2.0\mole_library.pdb
