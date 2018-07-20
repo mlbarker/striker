@@ -115,7 +115,7 @@ namespace mole_library.Moles
         /// <param name="mounds">The mounds in the level for the mole to know about.</param>
         public void Initialize(List<Mound> mounds)
         {
-            if (mounds.Count != 0)
+            if (mounds.Count > 0)
             {
                 m_mounds = mounds;
             }

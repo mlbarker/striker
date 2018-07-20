@@ -67,7 +67,7 @@ namespace mole_library.Mounds
         /// <summary>
         /// A basic mound for moles.
         /// </summary>
-        Mound()
+        public Mound()
         {
 
         }
