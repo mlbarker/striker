@@ -1,4 +1,17 @@
-﻿
+//+src=Game/Game.cs
+//+src=States/MoveToDifferentMoundState.cs
+//+src=States/MoveOutMoundState.cs
+//+src=States/MoveInMoundState.cs
+//+src=States/CounterState.cs
+//+src=States/BaseState.cs
+//+src=Mounds/Mound.cs
+//+src=Moles/Mole.cs
+//+src=Moles/BaseMole.cs
+//+src=Jobs/Samurai.cs
+//+src=Jobs/Pitcher.cs
+//+src=Jobs/NoJob.cs
+//+src=Interfaces/IJob.cs
+//+src=Interfaces/IGame.cs
 
 namespace striker_poc
 {
@@ -12,9 +25,9 @@ namespace striker_poc
     using States;
     using Moles;
 
-    class Program
+    public class Program
     {
-        static void Main(string[] args)
+        public static void Main(string[] args)
         {
             List<BaseState> states = new List<BaseState>();
             states.Add(new MoveInMoundState());
