@@ -22,9 +22,9 @@ namespace striker_poc.Interfaces
         void Initialize();
         
         /// <summary>
-        /// Updates all game objects.
+        /// Runs the game.
         /// </summary>
-        void Update();
+        void Run();
         
         /// <summary>
         /// Shut downs all game objects.
