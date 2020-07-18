@@ -1,6 +1,0 @@
-c:\users\swashy-b\documents\visual studio 2015\Projects\striker_poc\striker_poc\bin\Debug\striker_poc.exe.config
-C:\Users\Swashy-B\Documents\Visual Studio 2015\Projects\striker_poc\striker_poc\bin\Debug\striker_poc.exe
-C:\Users\Swashy-B\Documents\Visual Studio 2015\Projects\striker_poc\striker_poc\bin\Debug\striker_poc.pdb
-C:\Users\Swashy-B\Documents\Visual Studio 2015\Projects\striker_poc\striker_poc\obj\Debug\striker_poc.exe
-C:\Users\Swashy-B\Documents\Visual Studio 2015\Projects\striker_poc\striker_poc\obj\Debug\striker_poc.pdb
-C:\Users\Swashy-B\Documents\Visual Studio 2015\Projects\striker_poc\striker_poc\obj\Debug\striker_poc.csprojResolveAssemblyReference.cache
