@@ -4,23 +4,36 @@ using UnityEngine;
 
 public class Mole : MonoBehaviour
 {
-    #region SerializeFields
+    #region Serialize Fields
 
     [SerializeField]
-    private bool _outMound = true;
+    private GameObject _projectilePrefab; // assigned in editor
 
     [SerializeField]
-    private float _maxTimeInMound = 3.0f;
+    protected bool _outMound = true;
 
     [SerializeField]
-    private float _maxTimeOutMound = 5.0f;
+    protected float _maxTimeInMound = 3.0f;
+
+    [SerializeField]
+    protected float _maxTimeOutMound = 5.0f;
+
+    [SerializeField]
+    protected float _throwAccuracy = 0.7f;
+
+    // the amount of projectiles the mole will
+    // throw before going into the mound
+    [SerializeField]
+    protected int _projectiles = 1;
 
     #endregion
 
     #region Fields
 
-    private float _timeAmount;
-    private bool _sunglasses = true;
+    protected float _timeAmount;
+    protected bool _sunglasses = true;
+    protected float _noSunglassesAccuracy = 0.35f;
+    private int _rocks;
 
     #endregion
 
@@ -40,46 +53,40 @@ public class Mole : MonoBehaviour
         {
             _timeAmount = Random.Range(2.0f, _maxTimeInMound);
         }
+
+        _rocks = _projectiles;
     }
 
     // Update is called once per frame
     void Update()
     {
-        // start a cycle where the mole has 
-        // basic logic of going into and 
-        // coming out of the mound.
-        //
-        // just use some basic movement
-        // until I have assets
         InOutMoundLogic();
+        ThrowLogic();
     }
 
     #endregion
 
-    #region Private Methods
+    #region Protected Methods
 
-    private void GoIntoMound()
+    protected void GoIntoMound()
     {
         _outMound = false;
-        transform.position = new Vector3(0, -5.0f, 0);
+        transform.position += new Vector3(0, -5.0f, 0);
         _timeAmount = Random.Range(2.0f, _maxTimeInMound);
-        Debug.Log("In hole time: " + _timeAmount);
     }
 
-    private void GoOutOfMound()
+    protected void GoOutOfMound()
     {
         _outMound = true;
-        transform.position = Vector3.zero;
+        transform.position += new Vector3(0, 5.0f, 0);
         _timeAmount = Random.Range(2.0f, _maxTimeOutMound);
-        Debug.Log("Out hole time: " + _timeAmount);
     }
 
-    private void InOutMoundLogic()
+    protected void InOutMoundLogic()
     {
         _timeAmount -= Time.deltaTime;
         if (_timeAmount < 0)
         {
-            Debug.Log("Moving: " + _timeAmount);
             if (_outMound)
             {
                 GoIntoMound();
@@ -89,6 +96,35 @@ public class Mole : MonoBehaviour
                 GoOutOfMound();
             }
         }
+    }
+
+    protected virtual void ThrowLogic()
+    {
+        if (_outMound && _rocks > 0)
+        {
+            ThrowRock();
+            _rocks--;
+        }
+        else if (!_outMound)
+        {
+            _rocks = _projectiles;
+        }
+    }
+
+    protected bool ThrowIsAccurate()
+    {
+        float accuracy = Random.Range(0.0f, 1.0f);
+        return (_sunglasses) ? accuracy <= _throwAccuracy : accuracy <= _noSunglassesAccuracy;
+    }
+
+    #endregion
+
+    #region Private Methods
+
+    private void ThrowRock()
+    {
+        GameObject rockClone = Instantiate(_projectilePrefab, transform.position, Quaternion.identity);
+        Destroy(rockClone, 1.0f);
     }
 
     #endregion

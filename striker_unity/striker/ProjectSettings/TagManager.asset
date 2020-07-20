@@ -6,6 +6,7 @@ TagManager:
   tags:
   - Fire
   - Mole
+  - Projectile
   layers:
   - Default
   - TransparentFX
