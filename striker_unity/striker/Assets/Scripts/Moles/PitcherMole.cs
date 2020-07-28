@@ -86,14 +86,14 @@ public class PitcherMole : Mole
     private void ThrowFastball()
     {
         GameObject fastballClone = Instantiate(_pitches[FAST_BALL], transform.position, Quaternion.identity);
-        Destroy(fastballClone, 0.25f);
+        Destroy(fastballClone, 0.5f);
         Debug.Log("Throw fastball");
     }
 
     private void ThrowCurveball()
     {
         GameObject curveballClone = Instantiate(_pitches[CURVE_BALL], transform.position, Quaternion.identity);
-        Destroy(curveballClone, 1.3f);
+        Destroy(curveballClone, 1.0f);
         Debug.Log("Throw curveball");
     }
 
