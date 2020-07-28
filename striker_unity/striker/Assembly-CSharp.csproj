@@ -61,6 +61,7 @@
      <Compile Include="Assets\Scripts\Projectiles\Curveball.cs" />
      <Compile Include="Assets\Scripts\Projectiles\Fastball.cs" />
      <Compile Include="Assets\Scripts\Projectiles\Projectile.cs" />
+     <Compile Include="Assets\Scripts\Projectiles\Slowball.cs" />
  <Reference Include="UnityEngine">
  <HintPath>C:/Program Files/Unity/Hub/Editor/2019.4.3f1/Editor/Data/Managed/UnityEngine/UnityEngine.dll</HintPath>
  </Reference>

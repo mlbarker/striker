@@ -10,8 +10,8 @@ GameObject:
   m_Component:
   - component: {fileID: 258685482634437549}
   - component: {fileID: 4350437593391033572}
-  - component: {fileID: 3492439344813230652}
   - component: {fileID: 5868766427503278590}
+  - component: {fileID: 3492439344813230652}
   - component: {fileID: -7093893252516315961}
   - component: {fileID: -1482659575910779993}
   m_Layer: 0
@@ -74,7 +74,7 @@ SpriteRenderer:
   m_SortingLayerID: -1985360307
   m_SortingLayer: 2
   m_SortingOrder: 2
-  m_Sprite: {fileID: 21300000, guid: 6180be41465f29048824db2932230ee6, type: 3}
+  m_Sprite: {fileID: 21300000, guid: 1aa6601c7f967404f83221f9c9a341b8, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
   m_FlipY: 0
@@ -85,6 +85,25 @@ SpriteRenderer:
   m_WasSpriteAssigned: 1
   m_MaskInteraction: 0
   m_SpriteSortPoint: 0
+--- !u!95 &5868766427503278590
+Animator:
+  serializedVersion: 3
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2805394023687218005}
+  m_Enabled: 1
+  m_Avatar: {fileID: 0}
+  m_Controller: {fileID: 9100000, guid: 462834ed1f6599f49acd5655ae5dbe2d, type: 2}
+  m_CullingMode: 0
+  m_UpdateMode: 0
+  m_ApplyRootMotion: 0
+  m_LinearVelocityBlending: 0
+  m_WarningMessage: 
+  m_HasTransformHierarchy: 1
+  m_AllowConstantClipSamplingOptimization: 1
+  m_KeepAnimatorControllerStateOnDisable: 0
 --- !u!114 &3492439344813230652
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -98,25 +117,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _health: 1
---- !u!95 &5868766427503278590
-Animator:
-  serializedVersion: 3
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 2805394023687218005}
-  m_Enabled: 1
-  m_Avatar: {fileID: 0}
-  m_Controller: {fileID: 9100000, guid: 026913aa77822294e9a4ce01cdad175f, type: 2}
-  m_CullingMode: 0
-  m_UpdateMode: 0
-  m_ApplyRootMotion: 0
-  m_LinearVelocityBlending: 0
-  m_WarningMessage: 
-  m_HasTransformHierarchy: 1
-  m_AllowConstantClipSamplingOptimization: 1
-  m_KeepAnimatorControllerStateOnDisable: 0
+  _travelTime: 1
+  _speed: 4
 --- !u!58 &-7093893252516315961
 CircleCollider2D:
   m_ObjectHideFlags: 0

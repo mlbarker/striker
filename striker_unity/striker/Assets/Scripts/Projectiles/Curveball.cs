@@ -43,7 +43,6 @@ public class Curveball : Projectile
 
         transform.localScale += new Vector3(_scale, _scale);
         transform.Translate(_trajectory[_trajectoryCounter] * _speed * Time.deltaTime);
-        Debug.Log(_trajectory[_trajectoryCounter].x + " " + _trajectory[_trajectoryCounter].y);
     }
 
     protected override bool MouseOverDetected()
