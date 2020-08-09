@@ -124,7 +124,6 @@ public class Mole : MonoBehaviour
     private void ThrowRock()
     {
         GameObject rockClone = Instantiate(_projectilePrefab, transform.position, Quaternion.identity);
-        Destroy(rockClone, 1.0f);
     }
 
     #endregion

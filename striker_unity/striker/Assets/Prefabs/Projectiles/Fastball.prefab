@@ -13,7 +13,7 @@ GameObject:
   - component: {fileID: -6193735605746829869}
   - component: {fileID: 1706847770506895469}
   - component: {fileID: 9064786714850098703}
-  - component: {fileID: 6761693736593154693}
+  - component: {fileID: -5102590420524134176}
   m_Layer: 0
   m_Name: Fastball
   m_TagString: Projectile
@@ -141,7 +141,7 @@ Rigidbody2D:
   m_SleepingMode: 1
   m_CollisionDetection: 0
   m_Constraints: 0
---- !u!114 &6761693736593154693
+--- !u!114 &-5102590420524134176
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -150,9 +150,12 @@ MonoBehaviour:
   m_GameObject: {fileID: 962706346034623270}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: a17c360e49a59b84db0371b7d02e7bf5, type: 3}
+  m_Script: {fileID: 11500000, guid: c25143db54c5bf546b348427dda20922, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   _health: 1
   _travelTime: 1
-  _speed: 1
+  _speed: 3
+  _trajectory:
+  - _vector: {x: 0, y: 0, z: 0}
+    _scaleLimit: 1.5

@@ -21,7 +21,12 @@ public class Projectile : MonoBehaviour
 
     protected float _startTime;
     protected float _scale = 0.0f;
-    protected Vector3[] _trajectory;
+
+    // series of vectors for the projectile
+    // to follow while traveling toward the
+    // player
+    [SerializeField]
+    protected TrajectoryPoint[] _trajectory;
     protected int _trajectoryCounter = 0;
     private Player _player;
 
@@ -57,6 +62,7 @@ public class Projectile : MonoBehaviour
     void Update()
     {
         Debug.DrawLine(GetComponent<CircleCollider2D>().bounds.min, GetComponent<CircleCollider2D>().bounds.max, Color.red, Time.deltaTime, false);
+        TravelPath();
     }
 
     void OnMouseOver()
@@ -70,20 +76,78 @@ public class Projectile : MonoBehaviour
 
     protected virtual void TravelPath()
     {
+        if (_trajectoryCounter != _trajectory.Length)
+        {
+            _scale = (Time.time - _startTime) / _travelTime;
+            _scale *= _speed;
 
+            transform.localScale += new Vector3(_scale, _scale);
+            transform.Translate(_trajectory[_trajectoryCounter].Vector * _speed * Time.deltaTime);
+
+            // update to the next point when you reach the scale limit
+            if (_scale > _trajectory[_trajectoryCounter].ScaleLimit)
+            {
+                //Debug.Log("SCALE b/f NEXT TRAJ: " + _scale);
+                ++_trajectoryCounter;
+            }
+        }
+        else
+        {
+            Debug.Log("Destroy projectile");
+            DestroyProjectile();
+        }
     }
 
     protected virtual bool MouseOverDetected()
     {
-        Debug.Log("Ball collider");
-
-        //if (_player.MouseClicked())
-        //{
-        //    Debug.Log("Player clicked on projectile");
-        //    return true;
-        //}
+        if (_player.MouseClicked())
+        {
+            Debug.Log("Player clicked on projectile");
+            return true;
+        }
 
         return false;
+    }
+
+    protected void DestroyProjectile()
+    {
+        Destroy(this.gameObject);
+    }
+
+    #endregion
+
+    #region Nested Classes
+    
+    [System.Serializable]
+    protected internal class TrajectoryPoint
+    {
+        #region Fields
+
+        [SerializeField]
+        private Vector3 _vector;
+
+        // the max amount of scale that the projectile 
+        // reaches before moving to the next trajectory point
+        [SerializeField]
+        private float _scaleLimit;
+
+        #endregion
+
+        #region Properties
+
+        public Vector3 Vector
+        {
+            get => _vector;
+            private set => _vector = value;
+        }
+
+        public float ScaleLimit
+        {
+            get => _scaleLimit;
+            private set => _scaleLimit = value;
+        }
+
+        #endregion
     }
 
     #endregion

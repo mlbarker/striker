@@ -11,7 +11,7 @@ GameObject:
   - component: {fileID: 6277689899941639865}
   - component: {fileID: 6277689899941639866}
   - component: {fileID: 6277689899941639867}
-  - component: {fileID: 7532385852835290756}
+  - component: {fileID: -5875901774420230826}
   - component: {fileID: 2839999644547754906}
   - component: {fileID: -587678227424871175}
   m_Layer: 0
@@ -104,7 +104,7 @@ Animator:
   m_HasTransformHierarchy: 1
   m_AllowConstantClipSamplingOptimization: 1
   m_KeepAnimatorControllerStateOnDisable: 0
---- !u!114 &7532385852835290756
+--- !u!114 &-5875901774420230826
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -113,12 +113,17 @@ MonoBehaviour:
   m_GameObject: {fileID: 6277689899941639812}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 0bb269055ae57bd48b5738a878eb1bb7, type: 3}
+  m_Script: {fileID: 11500000, guid: c25143db54c5bf546b348427dda20922, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   _health: 1
-  _travelTime: 1
-  _speed: 2
+  _travelTime: 2
+  _speed: 1
+  _trajectory:
+  - _vector: {x: 0, y: 4, z: 0}
+    _scaleLimit: 0.25
+  - _vector: {x: 0, y: -4, z: 0}
+    _scaleLimit: 0.5
 --- !u!58 &2839999644547754906
 CircleCollider2D:
   m_ObjectHideFlags: 0

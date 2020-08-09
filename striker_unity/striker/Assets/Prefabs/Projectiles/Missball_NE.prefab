@@ -14,6 +14,7 @@ GameObject:
   - component: {fileID: 3492439344813230652}
   - component: {fileID: -7093893252516315961}
   - component: {fileID: -1482659575910779993}
+  - component: {fileID: 7063859260255022770}
   m_Layer: 0
   m_Name: Missball_NE
   m_TagString: Projectile
@@ -119,6 +120,9 @@ MonoBehaviour:
   _health: 1
   _travelTime: 1
   _speed: 4
+  _trajectory:
+  - _vector: {x: 2, y: 2, z: 0}
+    _scaleLimit: 0.5
 --- !u!58 &-7093893252516315961
 CircleCollider2D:
   m_ObjectHideFlags: 0
@@ -156,3 +160,21 @@ Rigidbody2D:
   m_SleepingMode: 1
   m_CollisionDetection: 0
   m_Constraints: 0
+--- !u!114 &7063859260255022770
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2805394023687218005}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: c25143db54c5bf546b348427dda20922, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _health: 1
+  _travelTime: 1
+  _speed: 2
+  _trajectory:
+  - _vector: {x: 2, y: 2, z: 0}
+    _scaleLimit: 2
