@@ -15,20 +15,23 @@ public class Projectile : MonoBehaviour
     [SerializeField]
     protected float _speed = 4.0f;
 
+    // series of vectors for the projectile
+    // to follow while traveling toward the
+    // player
+    [SerializeField]
+    protected TrajectoryPoint[] _trajectory;
+
     #endregion
 
     #region Fields
 
     protected float _startTime;
     protected float _scale = 0.0f;
-
-    // series of vectors for the projectile
-    // to follow while traveling toward the
-    // player
-    [SerializeField]
-    protected TrajectoryPoint[] _trajectory;
     protected int _trajectoryCounter = 0;
+    protected bool _hitEligible = false;
+    protected bool _hit = false;
     private Player _player;
+    private GameManager _gameManager;
 
     #endregion
 
@@ -36,10 +39,19 @@ public class Projectile : MonoBehaviour
 
     public bool Swoon
     {
-        get 
-        {
-            return _health < 1;
-        }
+        get => _health < 1;
+    }
+
+    public bool HitEligible
+    {
+        get => _hitEligible;
+        private set => _hitEligible = value;
+    }
+
+    public bool Hit
+    {
+        get => _hit;
+        private set => _hit = value;
     }
 
     #endregion
@@ -52,7 +64,13 @@ public class Projectile : MonoBehaviour
         _player = GameObject.Find("Player").GetComponent<Player>();
         if (_player == null)
         {
-            Debug.Log("Projectile._player is null");
+            Debug.LogError("Projectile.Start()._player is null");
+        }
+
+        _gameManager = GameObject.FindGameObjectWithTag("GameManager").GetComponent<GameManager>();
+        if(_gameManager == null)
+        {
+            Debug.LogError("Projectile.Start()._gameManager is null");
         }
 
         _startTime = Time.time;
@@ -63,6 +81,20 @@ public class Projectile : MonoBehaviour
     {
         Debug.DrawLine(GetComponent<CircleCollider2D>().bounds.min, GetComponent<CircleCollider2D>().bounds.max, Color.red, Time.deltaTime, false);
         TravelPath();
+    }
+
+    void OnMouseEnter()
+    {
+        _hitEligible = true;
+        _gameManager.AddProjectileToHitEligibleList(this);
+        Debug.Log("PROJ - O");
+    }
+
+    void OnMouseExit()
+    {
+        _hitEligible = false;
+        _gameManager.RemoveProjectileFromHitEligibleList(this);
+        Debug.Log("PROJ - X");
     }
 
     void OnMouseOver()
@@ -87,7 +119,6 @@ public class Projectile : MonoBehaviour
             // update to the next point when you reach the scale limit
             if (_scale > _trajectory[_trajectoryCounter].ScaleLimit)
             {
-                //Debug.Log("SCALE b/f NEXT TRAJ: " + _scale);
                 ++_trajectoryCounter;
             }
         }
@@ -102,7 +133,7 @@ public class Projectile : MonoBehaviour
     {
         if (_player.MouseClicked())
         {
-            Debug.Log("Player clicked on projectile");
+            Debug.Log("CLICKED - PROJ");
             return true;
         }
 
@@ -111,6 +142,7 @@ public class Projectile : MonoBehaviour
 
     protected void DestroyProjectile()
     {
+        _gameManager.RemoveProjectileFromHitEligibleList(this);
         Destroy(this.gameObject);
     }
 

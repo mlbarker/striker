@@ -33,7 +33,25 @@ public class Mole : MonoBehaviour
     protected float _timeAmount;
     protected bool _sunglasses = true;
     protected float _noSunglassesAccuracy = 0.35f;
+    protected bool _hitEligible = false;
+    protected bool _hit = false;
     private int _rocks;
+
+    #endregion
+
+    #region Properties
+
+    public bool HitEligible
+    {
+        get => _hitEligible;
+        private set => _hitEligible = value;
+    }
+
+    public bool Hit
+    {
+        get => _hit;
+        private set => _hit = value;
+    }
 
     #endregion
 
@@ -62,6 +80,27 @@ public class Mole : MonoBehaviour
     {
         InOutMoundLogic();
         ThrowLogic();
+    }
+
+    void OnMouseEnter()
+    {
+        _hitEligible = true;
+        Debug.Log("MOLE - O");
+    }
+
+    void OnMouseExit()
+    {
+        _hitEligible = false;
+        Debug.Log("MOLE - X");
+    }
+
+    #endregion
+
+    #region Public Methods
+
+    public void RegisterHit()
+    {
+        _hit = true;
     }
 
     #endregion
