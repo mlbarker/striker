@@ -7,6 +7,9 @@ public class Mole : MonoBehaviour
     #region Serialize Fields
 
     [SerializeField]
+    protected int _health = 1;
+
+    [SerializeField]
     private GameObject _projectilePrefab; // assigned in editor
 
     [SerializeField]
@@ -35,6 +38,7 @@ public class Mole : MonoBehaviour
     protected float _noSunglassesAccuracy = 0.35f;
     protected bool _hitEligible = false;
     protected bool _hit = false;
+    protected int _moddedHealth;
     private int _rocks;
 
     #endregion
@@ -51,6 +55,11 @@ public class Mole : MonoBehaviour
     {
         get => _hit;
         private set => _hit = value;
+    }
+
+    public bool Swoon
+    {
+        get => _moddedHealth <= 0;
     }
 
     #endregion
@@ -73,6 +82,7 @@ public class Mole : MonoBehaviour
         }
 
         _rocks = _projectiles;
+        _moddedHealth = _health;
     }
 
     // Update is called once per frame
@@ -80,18 +90,22 @@ public class Mole : MonoBehaviour
     {
         InOutMoundLogic();
         ThrowLogic();
+        UpdateHit();
+        UpdateSwoon();
     }
 
     void OnMouseEnter()
     {
-        _hitEligible = true;
-        Debug.Log("MOLE - O");
+        CastRay();
+        //_hitEligible = true;
+        //Debug.Log("MOLE - O");
     }
 
     void OnMouseExit()
     {
-        _hitEligible = false;
-        Debug.Log("MOLE - X");
+        CastRay();
+        //_hitEligible = false;
+        //Debug.Log("MOLE - X");
     }
 
     #endregion
@@ -154,6 +168,46 @@ public class Mole : MonoBehaviour
     {
         float accuracy = Random.Range(0.0f, 1.0f);
         return (_sunglasses) ? accuracy <= _throwAccuracy : accuracy <= _noSunglassesAccuracy;
+    }
+
+    protected void UpdateHit()
+    {
+        if (_hit)
+        {
+            _hit = false;
+            _moddedHealth--;
+            Debug.Log("Health - " + _moddedHealth);
+        }
+    }
+
+    protected void UpdateSwoon()
+    {
+        if (Swoon)
+        {
+            // return to the mound and update health
+            _moddedHealth = _health;
+            GoIntoMound();
+
+            Debug.Log(this.name + " GONE!");
+        }
+    }
+
+    protected void CastRay()
+    {
+        RaycastHit2D hit = Physics2D.Raycast(Camera.main.ScreenToWorldPoint(Input.mousePosition), Vector2.zero);
+        if (hit.collider != null)
+        {
+            if (hit.collider.tag == "Mole")
+            {
+                Debug.Log(hit.collider.gameObject.name);
+                _hitEligible = true;
+            }
+        }
+        else
+        {
+            Debug.Log("Exited Mole");
+            _hitEligible = false;
+        }
     }
 
     #endregion

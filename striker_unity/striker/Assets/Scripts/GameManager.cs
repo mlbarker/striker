@@ -42,6 +42,7 @@ public class GameManager : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
+        PlayerClickDetermination();
         UpdateHitEligibleLists();
     }
 
@@ -101,6 +102,8 @@ public class GameManager : MonoBehaviour
                 _molesInLevel.Add(mole);
             }
         }
+
+        Projectile.ResetIdCounter();
     }
 
     private void UpdateHitEligibleLists()
@@ -124,21 +127,42 @@ public class GameManager : MonoBehaviour
 
     private void UpdateHitEligibleProjectiles()
     {
-        // just error checking at this point since 
-        // the projectiles take care of themselves
-        foreach (var projectile in _hitEligibleProjectiles)
+        // exit if the list is empty
+        if (_hitEligibleProjectiles.Count != 0)
         {
-            if (projectile == null)
+            // just error checking at this point since 
+            // the projectiles take care of themselves
+            foreach (var projectile in _hitEligibleProjectiles)
             {
-                _hitEligibleProjectiles.Remove(projectile);
-                Debug.Log("PROBLEM!");
+                if (projectile == null)
+                {
+                    _hitEligibleProjectiles.Remove(projectile);
+                }
             }
         }
     }
 
     private void PlayerClickDetermination()
     {
+        if (_player.MouseClicked())
+        {
+            // lastProjectileIndex and lastMoleIndex refers to the 
+            // projectile/mole drawn on the topmost layer
+            //      NOTE: it is possible that a projectile or mole
+            //      on a lower layer could take the hit so this is
+            //      this is definitely a potential issue to watch for
+            if (_hitEligibleProjectiles.Count != 0)
+            {
+                int lastProjectileIndex = _hitEligibleProjectiles.Count - 1;
+                _hitEligibleProjectiles[lastProjectileIndex].RegisterHit();
+            }
+            else if (_hitEligibleMoles.Count != 0)
+            {
+                int lastMoleIndex = _hitEligibleMoles.Count - 1;
+                _hitEligibleMoles[lastMoleIndex].RegisterHit();
+            }
 
+        }
     }
 
     #endregion

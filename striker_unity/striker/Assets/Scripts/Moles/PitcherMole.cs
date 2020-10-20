@@ -52,6 +52,8 @@ public class PitcherMole : Mole
             ThrowCurveball,
             ThrowMissballNE
         };
+
+        _moddedHealth = _health;
     }
 
     // Update is called once per frame
@@ -59,6 +61,8 @@ public class PitcherMole : Mole
     {
         InOutMoundLogic();
         ThrowLogic();
+        UpdateHit();
+        UpdateSwoon();
     }
 
     #endregion

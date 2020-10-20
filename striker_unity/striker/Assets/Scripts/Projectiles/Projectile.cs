@@ -4,6 +4,12 @@ using UnityEngine;
 
 public class Projectile : MonoBehaviour
 {
+    #region Statics
+
+    private static uint IdCounter = 0;
+
+    #endregion
+
     #region Serialize Fields
 
     [SerializeField]
@@ -30,8 +36,10 @@ public class Projectile : MonoBehaviour
     protected int _trajectoryCounter = 0;
     protected bool _hitEligible = false;
     protected bool _hit = false;
+    protected uint _id = 0;
     private Player _player;
     private GameManager _gameManager;
+
 
     #endregion
 
@@ -73,33 +81,49 @@ public class Projectile : MonoBehaviour
             Debug.LogError("Projectile.Start()._gameManager is null");
         }
 
+        _id = ++IdCounter;
+
         _startTime = Time.time;
     }
 
     // Update is called once per frame
     void Update()
     {
+        // Debug
         Debug.DrawLine(GetComponent<CircleCollider2D>().bounds.min, GetComponent<CircleCollider2D>().bounds.max, Color.red, Time.deltaTime, false);
+
         TravelPath();
+        UpdateHit();
+        UpdateSwoon();
     }
 
     void OnMouseEnter()
     {
-        _hitEligible = true;
-        _gameManager.AddProjectileToHitEligibleList(this);
-        Debug.Log("PROJ - O");
+        CastRay();
     }
 
     void OnMouseExit()
     {
-        _hitEligible = false;
-        _gameManager.RemoveProjectileFromHitEligibleList(this);
-        Debug.Log("PROJ - X");
+        CastRay();
     }
 
     void OnMouseOver()
     {
-        MouseOverDetected();
+        //MouseOverDetected();
+    }
+
+    #endregion
+
+    #region Public Methods
+
+    public static void ResetIdCounter()
+    {
+        IdCounter = 0;
+    }
+
+    public void RegisterHit()
+    {
+        _hit = true;
     }
 
     #endregion
@@ -146,10 +170,49 @@ public class Projectile : MonoBehaviour
         Destroy(this.gameObject);
     }
 
+    protected void UpdateHit()
+    {
+        if (_hit)
+        {
+            _hit = false;
+            _health--;
+            Debug.Log("Projectile health - " + _health);
+        }
+    }
+
+    protected void UpdateSwoon() 
+    {
+        if (Swoon)
+        {
+            Debug.Log("Projectile GONE");
+            DestroyProjectile();
+        }
+    }
+
+    protected void CastRay()
+    {
+        RaycastHit2D hit = Physics2D.Raycast(Camera.main.ScreenToWorldPoint(Input.mousePosition), Vector2.zero);
+        if (hit.collider != null)
+        {
+            if (hit.collider.tag == "Projectile")
+            {
+                Debug.Log(hit.collider.gameObject.name);
+                _hitEligible = true;
+                _gameManager.AddProjectileToHitEligibleList(this);
+            }
+        }
+        else
+        {
+            Debug.Log("Exited Projectile");
+            _hitEligible = false;
+            _gameManager.AddProjectileToHitEligibleList(this);
+        }
+    }
+
     #endregion
 
     #region Nested Classes
-    
+
     [System.Serializable]
     protected internal class TrajectoryPoint
     {
