@@ -59,12 +59,14 @@ public class GameManager : MonoBehaviour
         else
         {
             _hitEligibleProjectiles.Add(projectile);
+            UpdateHitEligibleProjectiles();
         }
     }
 
     public void RemoveProjectileFromHitEligibleList(Projectile projectile)
     {
         _hitEligibleProjectiles.Remove(projectile);
+        UpdateHitEligibleProjectiles();
     }
 
     #endregion
@@ -109,7 +111,6 @@ public class GameManager : MonoBehaviour
     private void UpdateHitEligibleLists()
     {
         UpdateHitEligibleMoles();
-        UpdateHitEligibleProjectiles();
     }
 
     private void UpdateHitEligibleMoles()

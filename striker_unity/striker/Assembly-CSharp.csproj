@@ -60,6 +60,7 @@
      <Compile Include="Assets\Scripts\Moles\PitcherMole.cs" />
      <Compile Include="Assets\Scripts\Player.cs" />
      <Compile Include="Assets\Scripts\Projectiles\Projectile.cs" />
+     <Compile Include="Assets\Scripts\Wearables\Sunglasses.cs" />
  <Reference Include="UnityEngine">
  <HintPath>C:/Program Files/Unity/Hub/Editor/2019.4.3f1/Editor/Data/Managed/UnityEngine/UnityEngine.dll</HintPath>
  </Reference>

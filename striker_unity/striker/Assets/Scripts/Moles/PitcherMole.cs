@@ -53,6 +53,7 @@ public class PitcherMole : Mole
             ThrowMissballNE
         };
 
+        GetSunglassesComponent();
         _moddedHealth = _health;
     }
 

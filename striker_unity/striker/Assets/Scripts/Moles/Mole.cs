@@ -10,7 +10,7 @@ public class Mole : MonoBehaviour
     protected int _health = 1;
 
     [SerializeField]
-    private GameObject _projectilePrefab; // assigned in editor
+    private GameObject [] _projectilePrefabs; // assigned in editor
 
     [SerializeField]
     protected bool _outMound = true;
@@ -24,6 +24,9 @@ public class Mole : MonoBehaviour
     [SerializeField]
     protected float _throwAccuracy = 0.7f;
 
+    [SerializeField]
+    protected float _sunglassesDropPercentage = 0.1f;
+
     // the amount of projectiles the mole will
     // throw before going into the mound
     [SerializeField]
@@ -31,11 +34,19 @@ public class Mole : MonoBehaviour
 
     #endregion
 
+    #region Constants
+
+    private const int ROCK = 0;
+    private const int ROCK_MISSED_NW = 1;
+
+    #endregion
+
     #region Fields
 
+    protected Sunglasses _sunglasses;
     protected float _timeAmount;
-    protected bool _sunglasses = true;
-    protected float _noSunglassesAccuracy = 0.35f;
+    protected bool _sunglassesOn = true;
+    protected float _noSunglassesAccuracy;
     protected bool _hitEligible = false;
     protected bool _hit = false;
     protected int _moddedHealth;
@@ -81,6 +92,8 @@ public class Mole : MonoBehaviour
             _timeAmount = Random.Range(2.0f, _maxTimeInMound);
         }
 
+        GetSunglassesComponent();
+
         _rocks = _projectiles;
         _moddedHealth = _health;
     }
@@ -97,15 +110,11 @@ public class Mole : MonoBehaviour
     void OnMouseEnter()
     {
         CastRay();
-        //_hitEligible = true;
-        //Debug.Log("MOLE - O");
     }
 
     void OnMouseExit()
     {
         CastRay();
-        //_hitEligible = false;
-        //Debug.Log("MOLE - X");
     }
 
     #endregion
@@ -114,12 +123,28 @@ public class Mole : MonoBehaviour
 
     public void RegisterHit()
     {
+        SunglassesDroppedDetermination();
+
         _hit = true;
     }
 
     #endregion
 
     #region Protected Methods
+
+    protected void GetSunglassesComponent()
+    {
+        _sunglasses = this.GetComponentInChildren<Sunglasses>();
+        if (_sunglasses == null)
+        {
+            Debug.LogError("Mole.Start()._sunglasses is null");
+        }
+        else
+        {
+            _noSunglassesAccuracy += _throwAccuracy + _sunglasses.AccuracyDrop;
+            Debug.Log("No sunglasses accuracy = " + _noSunglassesAccuracy);
+        }
+    }
 
     protected void GoIntoMound()
     {
@@ -210,13 +235,40 @@ public class Mole : MonoBehaviour
         }
     }
 
+    protected void SunglassesDroppedDetermination()
+    {
+        if (_sunglassesOn)
+        {
+            float randomPercentage = Random.Range(0.0f, 1.0f);
+            Debug.Log("Rando Percent|" + randomPercentage);
+            if (randomPercentage <= _sunglassesDropPercentage)
+            {
+                _sunglassesOn = false;
+                _sunglasses.gameObject.SetActive(_sunglassesOn);
+            }
+        }
+    }
+
     #endregion
 
     #region Private Methods
 
     private void ThrowRock()
     {
-        GameObject rockClone = Instantiate(_projectilePrefab, transform.position, Quaternion.identity);
+        GameObject rockClone;
+        if (ThrowIsAccurate())
+        {
+            rockClone = Instantiate(_projectilePrefabs[ROCK], transform.position, Quaternion.identity);
+        }
+        else
+        {
+            rockClone = Instantiate(_projectilePrefabs[ROCK_MISSED_NW], transform.position, Quaternion.identity);
+        }
+        // TODO: IMPLEMENT
+        // else
+        // 1 - throw rock with inaccuracy
+        //  A - to do this we have to change _projectilePrefab to an array of GameObjects
+        //  B - set the prefabs in the editor
     }
 
     #endregion

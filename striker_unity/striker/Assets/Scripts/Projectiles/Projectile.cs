@@ -167,6 +167,7 @@ public class Projectile : MonoBehaviour
     protected void DestroyProjectile()
     {
         _gameManager.RemoveProjectileFromHitEligibleList(this);
+        Debug.Log("Projectile Destroyed");
         Destroy(this.gameObject);
     }
 
@@ -205,7 +206,7 @@ public class Projectile : MonoBehaviour
         {
             Debug.Log("Exited Projectile");
             _hitEligible = false;
-            _gameManager.AddProjectileToHitEligibleList(this);
+            _gameManager.RemoveProjectileFromHitEligibleList(this);
         }
     }
 
